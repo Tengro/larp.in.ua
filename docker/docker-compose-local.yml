@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  database:
+    environment:
+      POSTGRES_DB: larp_in_ua_db
+      POSTGRES_PASSWORD: GanzaUnion1
+    image: postgres:12.4
+    ports:
+      - 127.0.0.1:5433:5432/tcp
+    restart: always
+    volumes:
+      - pg_data:/var/lib/postgresql/data:rw
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - 127.0.0.1:1026:1025/tcp
+      - 127.0.0.1:8026:8025/tcp
+  redis:
+    image: redis:6.0.6
+    ports:
+      - 127.0.0.1:6380:6379/tcp
+    restart: always
+    volumes:
+      - redis_data:/data:rw
+volumes:
+  pg_data: {}
+  redis_data: {}

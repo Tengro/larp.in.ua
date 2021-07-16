@@ -1,0 +1,29 @@
+[run]
+omit =
+    *migrations*
+    *tests*
+    /usr/*
+    */env/*
+    */urls.py
+    larp_in_ua/fixtures/*
+    larp_in_ua/apps/accounts/api/authentication.py
+    larp_in_ua/apps/common/management/commands/generate_secretkey.py
+    larp_in_ua/apps/common/management/commands/startapp.py
+    larp_in_ua/apps/common/utils/redis.py
+    larp_in_ua/loggers.py
+    larp_in_ua/wsgi.py
+    */admin.py
+
+[report]
+exclude_lines =
+    noqa
+    pragma: no cover
+    def __unicode__
+    def __repr__
+    def __str__
+    if settings\.DEBUG
+    raise AssertionError
+    raise NotImplementedError
+    assert
+
+show_missing = True
