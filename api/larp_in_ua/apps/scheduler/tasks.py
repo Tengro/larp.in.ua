@@ -49,7 +49,7 @@ def notify_closest_events():
                 continue
             if not user._was_invited:
                 user._was_invited = True
-                user.send_approval_request(closest_workshop)
+                user.send_approval_request(closest_workshop, False)
                 user.save()
 
         for user in selected_waiting_users:
@@ -61,5 +61,5 @@ def notify_closest_events():
                 continue
             if not user._was_invited:
                 user._was_invited = True
-                user.send_approval_request(closest_workshop)
+                user.send_approval_request(closest_workshop, True)
                 user.save()
