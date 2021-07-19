@@ -7,6 +7,7 @@ from fabric_scripts.frontend import frontend_collection
 from fabric_scripts.git import git_collection
 from fabric_scripts.pip_tools import pip_collection
 from fabric_scripts.test import test_collection
+from fabric_scripts.deployment import deploy
 
 
 namespace = Collection(

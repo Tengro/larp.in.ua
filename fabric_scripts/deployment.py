@@ -9,6 +9,6 @@ def deploy(ctx):
     project_dir = "/home/larp.in.ua/api/"
     conn = Connection(f"{user}@{host}")
     with conn.cd(project_dir):
-        conn.run("git pull --rebase origin main")
-        conn.run("source ~/.virtualenvs/larp_egov/bin/activate && ./manage.py migrate")
+        conn.run("git pull --rebase origin main", pty=True)
+        conn.run("source ~/.virtualenvs/larpbot/bin/activate && ./manage.py migrate")
         conn.run("sudo systemctl restart gunicorn celery nginx celerybeat", pty=True)
