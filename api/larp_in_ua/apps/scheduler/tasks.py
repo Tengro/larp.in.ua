@@ -28,7 +28,7 @@ def notify_closest_events():
         prepared_users = closest_workshop.registered_users.filter(registration_status=RegistrationStatus.PRE_APPROVED)
         free_slots = closest_workshop.maximal_participants - closest_workshop.existing_participants - prepared_users.count()
         waiting_users = closest_workshop.registered_users.filter(registration_status=RegistrationStatus.ON_HOLD)
-        ffa_time = ((closest_workshop.event_time - now())/60) < FREE_FOR_ALL_TIME
+        ffa_time = ((closest_workshop.event_time - now()).seconds/60) < FREE_FOR_ALL_TIME
 
         if (free_slots > 0 and ffa_time) or (not prepared_users and not waiting_users and free_slots > 0):
             free_users = list(get_all_users().exclude(registered_events__event=closest_workshop)) + list(waiting_users)
