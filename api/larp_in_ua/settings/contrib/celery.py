@@ -27,8 +27,8 @@ CELERY_BEAT_SCHEDULE = {
             hour='*/6'
         ),
     },
-    'heartbeat': {
-        'task': 'larp_in_ua.apps.common.tasks.heartbeat',
-        'schedule': crontab(minute="*/2"),
-    },
+    # 'heartbeat': {
+    #     'task': 'larp_in_ua.apps.common.tasks.heartbeat',
+    #     'schedule': crontab(minute="*/2"),
+    # },
 }
