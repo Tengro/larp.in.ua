@@ -54,10 +54,8 @@ LOGGING = {
 
 
 DJANGO_TELEGRAMBOT = {
-
     'STRICT_INIT': True,
     'MODE': env.str("LARP_IN_UA_BOT_MODE", default='POLLING'),
-
     'WEBHOOK_SITE': 'https://tengro.site',
     'WEBHOOK_PREFIX': '/bot',
     'BOTS': [
@@ -68,6 +66,3 @@ DJANGO_TELEGRAMBOT = {
     ],
 
 }
-
-TELEGRAM_WEBHOOK_SITE = 'https://tengro.site'
-TELEGRAM_WEBHOOK_BASE = '/bot'
