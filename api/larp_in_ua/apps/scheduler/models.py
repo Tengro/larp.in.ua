@@ -143,8 +143,8 @@ class EventRegistration(CoreModel):
             full_stop = True
         if full_stop:
             return text
-        invitation.registration_status = status
-        invitation.save()
+        self.registration_status = status
+        self.save()
         if status == RegistrationStatus.APPROVED.value:
             text = 'Дякуємо за відповідь! Очікуємо вас на івенті!'
         if status == RegistrationStatus.DECLINED.value:
