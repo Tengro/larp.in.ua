@@ -1,5 +1,6 @@
 from ..django import TIME_ZONE as DJANGO_TIME_ZONE
 from ..environment import env
+from celery.schedules import crontab
 
 
 CELERY_TASK_ALWAYS_EAGER = env.bool("LARP_IN_UA_CELERY_TASK_ALWAYS_EAGER", default=False)

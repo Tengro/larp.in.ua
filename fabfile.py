@@ -21,3 +21,4 @@ namespace = Collection(
 namespace.add_task(backend_run, name="run")
 namespace.add_task(backend_shell, name="shell")
 namespace.add_task(backend_clean_pyc, name="clean-pyc")
+namespace.add_task(deploy, name="deploy")

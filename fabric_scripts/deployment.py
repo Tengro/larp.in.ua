@@ -6,7 +6,7 @@ from fabric import task
 def deploy(ctx):
     host = "161.35.78.186"
     user = "larpbot"
-    project_dir = "/home/larp.in.ua/api/"
+    project_dir = "/home/larpbot/larp.in.ua/api/"
     conn = Connection(f"{user}@{host}")
     with conn.cd(project_dir):
         conn.run("git pull --rebase origin main", pty=True)
