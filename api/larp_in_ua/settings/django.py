@@ -18,6 +18,26 @@ ALLOWED_HOSTS = env.list("LARP_IN_UA_ALLOWED_HOSTS", default=[])
 
 SECRET_KEY = env.str("LARP_IN_UA_SECRET_KEY")
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'logfile': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR + "/../logfile",
+        },
+    },
+    'root': {
+        'handlers': ['console', 'logfile'],
+        'level': 'INFO',
+    },
+}
+
+
 INSTALLED_APPS = [
     # django apps
     "django.contrib.admin",

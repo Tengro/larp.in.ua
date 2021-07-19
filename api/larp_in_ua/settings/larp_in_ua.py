@@ -38,26 +38,6 @@ if "LOG_SQL" in LARP_IN_UA_FEATURES:  # pragma: no cover
     }
 
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-        'logfile': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': BASE_DIR + "/../logfile",
-        },
-    },
-    'root': {
-        'handlers': ['console', 'logfile'],
-        'level': 'INFO',
-    },
-}
-
-
 DJANGO_TELEGRAMBOT = {
     'STRICT_INIT': True,
     'MODE': env.str("LARP_IN_UA_BOT_MODE", default='POLLING'),
