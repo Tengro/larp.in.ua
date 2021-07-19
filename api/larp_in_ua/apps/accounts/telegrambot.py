@@ -22,7 +22,8 @@ def register(update, context):
     if not success:
         safe_message_send(context.bot, update.message.chat_id, text=result)
         return
-    safe_message_send(context.bot, update.message.chat_id, text="Вітаємо на конвенті!")
+    result.send_registration_message()
+    result.send_personal_schedule()
     if is_created:
         created_text = "Здається, ви не реєструвалися заздалегідь на події потоку \"Діло\". Перевірте у адміністраторів!"
         safe_message_send(context.bot, update.message.chat_id, text=created_text)

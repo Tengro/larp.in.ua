@@ -98,6 +98,34 @@ class UserAccount(PermissionsMixin, CoreModel, AbstractBaseUser):
             dp = DjangoTelegramBot.dispatcher.bot
             safe_message_send(dp, self.telegram_id, str(text))
 
+    def send_registration_message(self):
+        message_text = """
+Отепер - привіт, друзяко! Мене звати Говард, я перший бот-хамелеон цього конвенту і я допоможу тобі не заблукати.
+
+Якщо ти рєеструвалася (чи рєеструвався) на щось з потоку "Діло", я нагадаю тобі про цей івент за пів-години до старту,
+але тобі треба буде протягом двадцяти хвилин підтвердити свою участь, інакше мені доведеться вважати, що тебе на івенті не буде.
+
+Якщо ти у списку очікування кудись, то я швиденько порадую тебе новинами, якщо з'явиться вільне місце, але знову ж, тобі треба буде
+швидко (за п'ять хвилин) підтвердити свої наміри.
+
+Усім цим сьогодні займатимусь саме я, Говард, бот-хамелеон, а не хтось з організаторів, але якщо трапиться якась халепа - знайди їх
+у реальному просторі. Вони допоможуть.
+        """
+        self.send_message(message_text)
+
+    def send_personal_schedule(self):
+        from larp_in_ua.apps.scheduler.selectors import get_registered_events, get_waitlisted_registered_events
+        registered_events = get_registered_events(self)
+        waitlisted_events = get_waitlisted_registered_events(self)
+        if registered_events:
+            self.send_message("Тебе зареєстровано на наступні події потоку \"Діло\":")
+            for event_invitiation in registered_events:
+                self.send_message(f"{event_invitiation.event.title} о {event_invitiation.event.time_string}")
+        if waitlisted_events:
+            self.send_message("Ти у списку очікування на наступні події потоку \"Діло\":")
+            for event_invitiation in waitlisted_events:
+                self.send_message(f"{event_invitiation.event.title} о {event_invitiation.event.time_string}")
+
     def send_approval_request(self, closest_workshop_invite, is_waitlist=False):
         closest_workshop = closest_workshop_invite.event
         if not self.telegram_id:
