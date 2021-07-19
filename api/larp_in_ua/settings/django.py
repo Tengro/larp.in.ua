@@ -111,7 +111,7 @@ SESSION_COOKIE_NAME = "s"
 CSRF_COOKIE_NAME = "c"
 
 LANGUAGE_CODE = "en-us"
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Kiev"
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
