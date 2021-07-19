@@ -33,7 +33,8 @@ class Event(CoreModel):
 
     @property
     def time_string(self):
-        return self.event_time.strftime("%H:%M")
+        event_time = timezone.localtime(self.event_time)
+        return event_time.strftime("%H:%M")
 
     @property
     def lection_representation(self) -> str:
