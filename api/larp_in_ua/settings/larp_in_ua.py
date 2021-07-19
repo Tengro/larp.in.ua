@@ -45,9 +45,14 @@ LOGGING = {
         'console': {
             'class': 'logging.StreamHandler',
         },
+        'logfile': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR + "/../logfile",
+        },
     },
     'root': {
-        'handlers': ['console'],
+        'handlers': ['console', 'logfile'],
         'level': 'INFO',
     },
 }
