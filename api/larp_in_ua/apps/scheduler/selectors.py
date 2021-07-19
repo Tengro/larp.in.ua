@@ -34,7 +34,7 @@ def get_closest_not_filled_workshop(lane_number):
     this_moment = now()
     closest_moment = now() + timedelta(minutes=CLOSEST_TIME_IN_MINUTES)
     closest_workshop = unfilled_workshops.filter(event_time__range=(this_moment, closest_moment)).order_by('event_time').first()
-    return closest_lection
+    return closest_workshop
 
 
 def get_registered_events(user_account):
