@@ -31,5 +31,4 @@ class UserAdmin(DjangoUserAdmin):
     list_display = ("email", "first_name", "last_name", "is_staff", "is_active")
     search_fields = ("first_name", "last_name", "email")
     ordering = ("email",)
-    readonly_fields = ("email",)
     inlines = [EventRegistrationUserInline, ]
