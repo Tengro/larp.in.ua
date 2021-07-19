@@ -11,5 +11,6 @@ def refresh_hook():
 
 @celery_app.task
 def heartbeat():
+    from larp_in_ua.apps.accounts.models import UserAccount
     user = UserAccount.objects.get_tengro_account()
     user.send_message("ITS ALIVE")
