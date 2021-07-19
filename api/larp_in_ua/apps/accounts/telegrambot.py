@@ -32,8 +32,7 @@ def register(update, context):
 def button(update, context) -> None:
     """Parses the CallbackQuery and updates the message text."""
     query = update.callback_query
-    logger.warn(f"BUGFIX ISSUE: {query.data}")
-    status, item_id, is_waitlist = query.data.split(' ')
+    status, item_id, is_waitlist = query.data.split('|||')
     invitation = EventRegistration.objects.get(pk=item_id)
     text = invitation.process_invite(status, is_waitlist)
 

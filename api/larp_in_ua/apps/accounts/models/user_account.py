@@ -132,7 +132,7 @@ class UserAccount(PermissionsMixin, CoreModel, AbstractBaseUser):
         else:
             text = closest_workshop.workshop_invitation
         dp = DjangoTelegramBot.dispatcher.bot
-        approve_button = InlineKeyboardButton("\u2705 Так, буду", callback_data=f"{RegistrationStatus.APPROVED} {closest_workshop_invite.pk} {is_waitlist}")
-        decline_button = InlineKeyboardButton("\u274C Ні, не зможу", callback_data=f"{RegistrationStatus.DECLINED} {closest_workshop_invite.pk} {is_waitlist}")
+        approve_button = InlineKeyboardButton("\u2705 Так, буду", callback_data=f"{RegistrationStatus.APPROVED}|||{closest_workshop_invite.pk}|||{is_waitlist}")
+        decline_button = InlineKeyboardButton("\u274C Ні, не зможу", callback_data=f"{RegistrationStatus.DECLINED}|||{closest_workshop_invite.pk}|||{is_waitlist}")
         markup = InlineKeyboardMarkup([[approve_button, decline_button]], one_time_keyboard=True)
         dp.sendMessage(self.telegram_id, text, reply_markup=markup)
