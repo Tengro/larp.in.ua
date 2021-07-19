@@ -4,6 +4,9 @@ from django.utils.translation import gettext_lazy
 from larp_in_ua.apps.common.models import CoreModel
 from larp_in_ua.apps.scheduler.constants import MAX_TIMES_ASKED, MAX_TIMES_ASKED_HOT
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 class EventTypeChoices(models.IntegerChoices):
     LECTURE = 1, "Івент потоку \"Слово\""
@@ -145,6 +148,11 @@ class EventRegistration(CoreModel):
             return text
         self.registration_status = status
         self.save()
+        approved = status == RegistrationStatus.APPROVED.value
+        declined = status == RegistrationStatus.DECLINED.value
+        logger.warn(f"DEBUGGINNG: {status}")
+        logger.warn(f"DEBUGGINNG: approved {approved}")
+        logger.warn(f"DEBUGGINNG: declined {declined}")
         if status == RegistrationStatus.APPROVED.value:
             text = 'Дякуємо за відповідь! Очікуємо вас на івенті!'
         if status == RegistrationStatus.DECLINED.value:
