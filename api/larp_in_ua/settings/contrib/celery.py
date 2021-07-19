@@ -11,7 +11,7 @@ CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = DJANGO_TIME_ZONE
 
-CELERYBEAT_SCHEDULE = {
+CELERY_BEAT_SCHEDULE = {
     'closest_lection_notifier': {
         'task': 'larp_in_ua.apps.scheduler.tasks.notify_closest_lection',
         'schedule': crontab(),
