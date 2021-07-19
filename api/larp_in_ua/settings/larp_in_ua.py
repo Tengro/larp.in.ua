@@ -61,8 +61,8 @@ DJANGO_TELEGRAMBOT = {
                         # NB: if use polling you must provide to run
                         # a management command that starts a worker
 
-    # 'WEBHOOK_SITE' : 'https://atomlarp.com',
-    # 'WEBHOOK_PREFIX' : '/bot', # (Optional[str]) # If this value is specified,
+    'WEBHOOK_SITE' : 'https://tengro.site',
+    'WEBHOOK_PREFIX' : '/bot', # (Optional[str]) # If this value is specified,
                                   # a prefix is added to webhook url
 
     #'WEBHOOK_CERTIFICATE' : 'cert.pem', # If your site use self-signed
