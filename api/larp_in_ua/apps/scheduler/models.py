@@ -89,12 +89,14 @@ class Event(CoreModel):
 Назва: {name}
 Опис: {description}
 За нашими даними, на цей івент з'явилися вільні місця (хтось з тих, хто реєструвався попередньо, не підтвердив участі).
+Всього {places} місць!
 Зверніться до організаторів, можливо вони чекають саме на вас!
         """.format(
             time=self.time_string,
             organizers=self.organizers,
             name=self.title,
-            description=self.description
+            description=self.description,
+            places=places,
         )
         return resulting_string
 
