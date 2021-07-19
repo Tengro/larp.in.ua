@@ -148,11 +148,8 @@ class EventRegistration(CoreModel):
             return text
         self.registration_status = status
         self.save()
-        approved = status == RegistrationStatus.APPROVED.value
-        declined = status == RegistrationStatus.DECLINED.value
-        logger.warn(f"DEBUGGINNG: {status}")
-        logger.warn(f"DEBUGGINNG: approved {approved}")
-        logger.warn(f"DEBUGGINNG: declined {declined}")
+        approved = int(status) == int(RegistrationStatus.APPROVED.value)
+        declined = int(status) == int(RegistrationStatus.DECLINED.value)
         if status == RegistrationStatus.APPROVED.value:
             text = 'Дякуємо за відповідь! Очікуємо вас на івенті!'
         if status == RegistrationStatus.DECLINED.value:
