@@ -41,7 +41,7 @@ class Event(CoreModel):
 
     @property
     def lection_representation(self) -> str:
-        resulting_string = "Нагадуємо!\nО {time} відбудеться івент потоку \"Слово\" від {organizers}.\nНазва: {name}\nОпис: {description}".format(
+        resulting_string = "Нагадуємо!\nО {time} відбудеться івент потоку \"Слово\" від {organizers}. Реєсстрація не потрібна!\nНазва івенту: {name}\nОпис: {description}".format(
             time=self.time_string,
             organizers=self.organizers,
             name=self.title,
