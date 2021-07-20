@@ -99,7 +99,7 @@ class Event(CoreModel):
             name=self.title,
             description=self.description,
             places=places,
-            label=self.get_event_lane_display,
+            label=self.get_event_lane_display(),
         )
         return resulting_string
 
