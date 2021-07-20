@@ -136,6 +136,7 @@ class EventRegistration(CoreModel):
         self.user.send_approval_request(self, is_hot)
 
     def process_invite(self, status, is_hot):
+        is_hot = bool(is_hot)
         max_counter = MAX_TIMES_ASKED_HOT if is_hot else MAX_TIMES_ASKED
         full_stop = False
         if self.registration_status in [RegistrationStatus.APPROVED, RegistrationStatus.DECLINED]:
