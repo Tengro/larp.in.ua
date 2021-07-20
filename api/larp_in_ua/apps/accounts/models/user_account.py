@@ -133,7 +133,7 @@ class UserAccount(PermissionsMixin, CoreModel, AbstractBaseUser):
             for event_invitiation in waitlisted_events:
                 self.send_message(f"{event_invitiation.event.title} о {event_invitiation.event.time_string}")
         if not registered_events and not waitlisted_events:
-            self.send_message("Здається, ви не реєструвалися заздалегідь на події потоку \"Діло\"!")
+            self.send_message("Здається, ви не реєструвалися заздалегідь на події потоку \"Діло\" або усі ваші івенти вже пройшли!")
 
     def send_approval_request(self, closest_workshop_invite, is_waitlist=False):
         closest_workshop = closest_workshop_invite.event
