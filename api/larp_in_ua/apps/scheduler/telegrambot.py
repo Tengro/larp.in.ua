@@ -28,8 +28,6 @@ def all_schedule(update, context):
 
 
 def main():
-    logger.warning("Loading handlers for scheduler")
-
     dp = DjangoTelegramBot.dispatcher
     dp.add_handler(CommandHandler("my_events", registered_events_left))
     dp.add_handler(CommandHandler("lections", lections_left))
