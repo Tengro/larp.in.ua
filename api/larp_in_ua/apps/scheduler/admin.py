@@ -4,7 +4,7 @@ from larp_in_ua.apps.scheduler.models import Event, EventRegistration
 
 class EventRegistrationUserInline(admin.StackedInline):
     model = EventRegistration
-    fields = ['__str__', 'user', 'registration_status']
+    fields = ['__str__', 'user', 'registration_status', '_times_asked']
     readonly_fields = ['__str__', ]
 
 

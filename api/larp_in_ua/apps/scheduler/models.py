@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.timezone import now
 from django.utils.translation import gettext_lazy
 from larp_in_ua.apps.common.models import CoreModel
 from larp_in_ua.apps.scheduler.constants import MAX_TIMES_ASKED, MAX_TIMES_ASKED_HOT
@@ -56,7 +57,7 @@ class Event(CoreModel):
 Назва: {name}
 Опис: {description}
 Підтверьдте участь!
-Якщо протягом 20 хвилин ви не відповісте на це запрошення, ваше місце на івенті перейде комусь зі списку очікіування.
+Якщо протягом 25 хвилин ви не відповісте на це запрошення, ваше місце на івенті перейде комусь зі списку очікіування.
         """.format(
             time=self.time_string,
             organizers=self.organizers,
@@ -73,7 +74,7 @@ class Event(CoreModel):
 Назва: {name}
 Опис: {description}
 Ви були у списку очікування цього івенту - і зараз з'явилося вільне місце!
-Якщо протягом 5 хвилин ви не відповісте на це запрошення, ваше місце на івенті перейде комусь іще зі списку очікіування.
+Якщо протягом 2 хвилин ви не відповісте на це запрошення, ваше місце на івенті перейде комусь іще зі списку очікіування.
         """.format(
             time=self.time_string,
             organizers=self.organizers,
@@ -101,7 +102,7 @@ class Event(CoreModel):
         return resulting_string
 
     def __str__(self, *args, **kwargs):
-        return f"{self.title} о {self.time_string}"
+        return f"{self.title} о {self.time_string} від {self.organizers}"
 
     class Meta:
         ordering = ('event_time',)
@@ -146,6 +147,9 @@ class EventRegistration(CoreModel):
         if self.event.finished_notification:
             text = "Схоже на цей івент вже не збирають підтверджень; він або ось-ось почнеться, або набрав повний список"
             full_stop = True
+        if self.event.event_time < now():
+            full_stop = True
+            text = "Схоже, івент вже почався і ви пропустили дедлайн =("
         if full_stop:
             return text
         self.registration_status = status

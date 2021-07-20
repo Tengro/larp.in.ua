@@ -2,7 +2,13 @@ from typing import Optional
 from django.db.models import F, Q, Count, QuerySet
 from django.utils.timezone import now
 from datetime import timedelta
-from larp_in_ua.apps.scheduler.models import Event, EventTypeChoices, RegistrationStatus, EventRegistration
+from larp_in_ua.apps.scheduler.models import (
+    Event,
+    EventTypeChoices,
+    RegistrationStatus,
+    EventRegistration,
+    EventLaneChoices,
+)
 
 CLOSEST_TIME_IN_MINUTES = 30
 CLOSEST_LECTURE_TIME_IN_MINUTES = 5
@@ -38,8 +44,44 @@ def get_closest_not_filled_workshop(lane_number):
 
 
 def get_registered_events(user_account):
-    return EventRegistration.objects.filter(user=user_account).filter(registration_status=RegistrationStatus.PRE_APPROVED).select_related('event').order_by('event__event_time')
+    this_moment = now()
+    return EventRegistration.objects.filter(
+        user=user_account
+    ).filter(
+        registration_status=RegistrationStatus.PRE_APPROVED,
+        event__event_time__gte=this_moment,
+    ).select_related('event').order_by('event__event_time')
 
 
 def get_waitlisted_registered_events(user_account):
-    return EventRegistration.objects.filter(user=user_account).filter(registration_status=RegistrationStatus.ON_HOLD).select_related('event').order_by('event__event_time')
+    this_moment = now()
+    return EventRegistration.objects.filter(
+        user=user_account
+    ).filter(
+        registration_status=RegistrationStatus.ON_HOLD,
+        event__event_time__gte=this_moment,
+    ).select_related('event').order_by('event__event_time')
+
+
+def all_events():
+    result = []
+    for choice in EventLaneChoices.choices:
+        queryset = Event.objects.filter(event_type=EventTypeChoices.WORKSHOP).filter(event_lane=choice[0])
+        title = choice[1]
+        result.append((title, queryset))
+    return result
+
+
+def events_left():
+    result = []
+    this_moment = now()
+    for choice in EventLaneChoices.choices:
+        queryset = Event.objects.filter(event_type=EventTypeChoices.WORKSHOP).filter(event_lane=choice[0]).filter(event_time__gte=this_moment)
+        title = choice[1]
+        result.append((title, queryset))
+    return result
+
+
+def lections_left():
+    this_moment = now()
+    return get_all_lections().filter(event_time__gte=this_moment)
