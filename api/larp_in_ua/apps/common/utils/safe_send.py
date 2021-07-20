@@ -1,6 +1,3 @@
-from telegram import ParseMode
-
-
 def split_string(text, chars_per_string):
     """
     Splits one string into multiple strings, with a maximum amount of `chars_per_string` characters per string.
@@ -16,4 +13,4 @@ def split_string(text, chars_per_string):
 def safe_message_send(bot, chat_id, text):
     splitted_text = split_string(text, 4080)
     for message in splitted_text:
-        bot.sendMessage(chat_id, message, parse_mode=ParseMode.MARKDOWN_V2)
+        bot.send_message(chat_id, message, parse_mode='MarkdownV2')
