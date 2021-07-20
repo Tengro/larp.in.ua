@@ -42,7 +42,7 @@ class Event(CoreModel):
 
     @property
     def lection_representation(self) -> str:
-        resulting_string = "Нагадуємо!\nО {time} відбудеться івент потоку \"Слово\" від {organizers}. Реєсстрація не потрібна!\n*Назва івенту*: {name}\n*Опис*: {description}".format(
+        resulting_string = "Нагадуємо!\nО {time} відбудеться івент потоку \"Слово\" від {organizers}. Реєсстрація не потрібна!\n<b>Назва івенту</b>: {name}\n<b>Опис</b>: {description}".format(
             time=self.time_string,
             organizers=self.organizers,
             name=self.title,
@@ -54,8 +54,8 @@ class Event(CoreModel):
     def workshop_invitation(self) -> str:
         resulting_string = """
 О {time} відбудеться івент потоку \"Діло\" від {organizers}.
-*Назва*: {name}
-*Опис*: {description}
+<b>Назва</b>: {name}
+<b>Опис</b>: {description}
 Підтверьдте участь!
 Якщо протягом 25 хвилин ви не відповісте на це запрошення, ваше місце на івенті перейде комусь зі списку очікіування.
         """.format(
@@ -71,8 +71,8 @@ class Event(CoreModel):
         resulting_string = """
 Привіт! У нас хороші новини.
 О {time} відбудеться івент потоку \"Діло\" від {organizers}.
-*Назва*: {name}
-*Опис*: {description}
+<b>Назва</b>: {name}
+<b>Опис</b>: {description}
 Ви були у списку очікування цього івенту - і зараз з'явилося вільне місце!
 Якщо протягом 2 хвилин ви не відповісте на це запрошення, ваше місце на івенті перейде комусь іще зі списку очікіування.
         """.format(
@@ -88,8 +88,8 @@ class Event(CoreModel):
 УВАГА! УВАГА! УВАГА!
 Ось-ось, о {time} відбудеться івент потоку \"Діло\" від {organizers}
 Це івент відбудеться на локації де проходить {label} потік.
-*Назва*: {name}
-*Опис*: {description}
+<b>Назва</b>: {name}
+<b>Опис</b>: {description}
 За нашими даними, на цей івент з'явилися вільні місця (хтось з тих, хто реєструвався попередньо, не підтвердив участі).
 Всього {places} місць!
 Зверніться до організаторів, можливо вони чекають саме на вас!
@@ -103,7 +103,7 @@ class Event(CoreModel):
         )
         return resulting_string
 
-    def __str__(self, *args, **kwargs):
+    def __str__(self, <b>args, <b><b>kwargs):
         return f"{self.title} о {self.time_string} від {self.organizers}"
 
     class Meta:
@@ -128,7 +128,7 @@ class EventRegistration(CoreModel):
     _was_invited = models.BooleanField(default=False)
     _times_asked = models.IntegerField(default=0)
 
-    def __str__(self, *args, **kwargs):
+    def __str__(self, <b>args, <b><b>kwargs):
         return f"{self.event.title} о {self.event.time_string}: реєстрація для {self.user.email}"
 
     class Meta:
