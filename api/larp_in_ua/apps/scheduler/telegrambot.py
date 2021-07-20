@@ -11,8 +11,8 @@ def lections_left(update, context):
 def all_events_left(update, context):
     rows = prepare_events_left()
     if rows:
-        for item in row:
-            safe_message_send(context.bot, update.message.chat_id, text=item)
+        for row in rows:
+            safe_message_send(context.bot, update.message.chat_id, text=row)
     else:
         safe_message_send(context.bot, update.message.chat_id, text="Здається, потік \"Діло\" добігає кінця!")
 
