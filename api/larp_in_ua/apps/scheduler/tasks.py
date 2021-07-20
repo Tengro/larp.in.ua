@@ -58,10 +58,12 @@ def notify_closest_events():
                     user.send_approval_request(True)
                     user.save()
 
-        if (free_slots > 0 and ffa_time) or (not prepared_users and not waiting_users and free_slots > 0):
+        if (free_slots > 0 and ffa_time) or (not prepared_users and not waiting_users and free_slots > 0 and last_call_for_waitlist):
             free_users = list(waiting_users) + list(get_all_users().exclude(registered_events__event=closest_workshop))
             for user in free_users:
                 user.send_message(closest_workshop.ffa_notification(free_slots))
+
+        if ffa_time:
             closest_workshop.finished_notification = True
             closest_workshop.save()
             continue
