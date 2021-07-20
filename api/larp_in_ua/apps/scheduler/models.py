@@ -15,8 +15,8 @@ class EventTypeChoices(models.IntegerChoices):
 
 
 class EventLaneChoices(models.IntegerChoices):
-    FIRST_LANE = 1, "Перший потік"
-    SECOND_LANE = 2, "Другий потік"
+    FIRST_LANE = 1, "Великий"
+    SECOND_LANE = 2, "Малий"
 
 
 class Event(CoreModel):
@@ -86,7 +86,8 @@ class Event(CoreModel):
     def ffa_notification(self, places) -> str:
         resulting_string = """
 УВАГА! УВАГА! УВАГА!
-Ось-ось, о {time} відбудеться івент потоку \"Діло\" від {organizers}.
+Ось-ось, о {time} відбудеться івент потоку \"Діло\" від {organizers}
+Це івент відбудеться на локації де проходить {label} потік.
 Назва: {name}
 Опис: {description}
 За нашими даними, на цей івент з'явилися вільні місця (хтось з тих, хто реєструвався попередньо, не підтвердив участі).
@@ -98,6 +99,7 @@ class Event(CoreModel):
             name=self.title,
             description=self.description,
             places=places,
+            label=self.get_event_lane_display,
         )
         return resulting_string
 
