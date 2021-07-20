@@ -3,11 +3,11 @@ from larp_in_ua.apps.scheduler.models import EventLaneChoices
 
 
 def prepare_events_all():
-    return [f'Потік "Діло", {t}\n\n,' + '\n\n'.join([x.__str__() for x in y]) for t, y in all_events() if y]
+    return [f'Потік "Діло", {t}\n' + '\n'.join([x.__str__() for x in y]) for t, y in all_events() if y]
 
 
 def prepare_events_left():
-    return [f'Потік "Діло", {t}\n\n' + '\n\n'.join([x.__str__() for x in y]) for t, y in events_left() if y]
+    return [f'Потік "Діло", {t}\n' + '\n'.join([x.__str__() for x in y]) for t, y in events_left() if y]
 
 
 def prepare_lections_all():

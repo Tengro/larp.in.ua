@@ -67,5 +67,6 @@ def main():
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("register", register))
     dp.add_handler(CallbackQueryHandler(button))
+    dp.add_handler(CommandHandler("my_events", registered_events_left))
     # log all errors
     dp.add_error_handler(error)
