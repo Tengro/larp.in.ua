@@ -103,7 +103,7 @@ class Event(CoreModel):
         )
         return resulting_string
 
-    def __str__(self, <b>args, <b><b>kwargs):
+    def __str__(self, *args, **kwargs):
         return f"{self.title} о {self.time_string} від {self.organizers}"
 
     class Meta:
@@ -128,7 +128,7 @@ class EventRegistration(CoreModel):
     _was_invited = models.BooleanField(default=False)
     _times_asked = models.IntegerField(default=0)
 
-    def __str__(self, <b>args, <b><b>kwargs):
+    def __str__(self, *args, **wargs):
         return f"{self.event.title} о {self.event.time_string}: реєстрація для {self.user.email}"
 
     class Meta:
