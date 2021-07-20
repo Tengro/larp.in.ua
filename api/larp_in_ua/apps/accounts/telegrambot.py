@@ -6,7 +6,7 @@ from larp_in_ua.apps.accounts.selectors import get_user_by_telegram_id
 from larp_in_ua.apps.common.utils.help import get_help_message
 from larp_in_ua.apps.common.utils.safe_send import safe_message_send
 from larp_in_ua.apps.scheduler.models import EventRegistration
-# from larp_in_ua.apps.scheduler.utils import prepare_events_all, prepare_events_left, prepare_lections_all, prepare_lections_left
+from larp_in_ua.apps.scheduler.utils import prepare_events_all, prepare_events_left, prepare_lections_all, prepare_lections_left
 
 
 import logging
