@@ -11,6 +11,6 @@ class EventRegistrationUserInline(admin.StackedInline):
 # Register your models here.
 @admin.register(Event)
 class Event(admin.ModelAdmin):
-    list_display = ("event_time", "title", "event_type", "event_lane", 'organizers',)
+    list_display = ("event_time", "title", "event_type", "event_lane", "night_event_lane", 'organizers',)
     search_fields = ("title", "organizers", "email")
     inlines = [EventRegistrationUserInline, ]

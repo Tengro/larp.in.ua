@@ -18,6 +18,12 @@ def get_all_lections() -> QuerySet:
     return Event.objects.filter(event_type=EventTypeChoices.LECTURE)
 
 
+def get_closest_night_event() -> QuerySet:
+    this_moment = now()
+    closest_moment = now() + timedelta(minutes=CLOSEST_LECTURE_TIME_IN_MINUTES)
+    return Event.objects.filter(event_type=EventTypeChoices.NIGHT).exclude(finished_notification=True).filter(event_time__range=(this_moment, closest_moment)).order_by('event_time').first()
+
+
 def get_closest_lection() -> Optional[Event]:
     this_moment = now()
     closest_moment = now() + timedelta(minutes=CLOSEST_LECTURE_TIME_IN_MINUTES)

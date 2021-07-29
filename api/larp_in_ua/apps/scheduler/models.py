@@ -12,11 +12,20 @@ logger = logging.getLogger(__name__)
 class EventTypeChoices(models.IntegerChoices):
     LECTURE = 1, "Івент потоку \"Слово\""
     WORKSHOP = 2, "Івент потоку \"Діло\""
+    NIGHT = 3, "Івент Do!Roleplay Night"
 
 
 class EventLaneChoices(models.IntegerChoices):
     FIRST_LANE = 1, "Великий"
     SECOND_LANE = 2, "Малий"
+
+
+class NightEventLaneChoices(models.IntegerChoices):
+    GREAT_HALL = 1, "Великий"
+    CUDDLE = 2, "Party Room: Cuddle-puddle"
+    LOCK_STOCK_BARRELS = 3, "Party Room: Карти, гроші, два стволи"
+    CYBERPUNK_TRAP = 4, "Party Room: CYBERPUNK#TRAP"
+    ORG_LOCATION = 5, "Організаторське приміщення"
 
 
 class Event(CoreModel):
@@ -30,6 +39,11 @@ class Event(CoreModel):
     maximal_participants = models.IntegerField()
     event_lane = models.IntegerField(
         choices=EventLaneChoices.choices,
+        blank=True,
+        null=True,
+    )
+    night_event_lane = models.IntegerField(
+        choices=NightEventLaneChoices.choices,
         blank=True,
         null=True,
     )
@@ -47,6 +61,16 @@ class Event(CoreModel):
             organizers=self.organizers,
             name=self.title,
             description=self.description
+        )
+        return resulting_string
+
+    @property
+    def night_representation(self) -> str:
+        resulting_string = "Увага!\nО {time} у {label} відбудеться івент від {organizers}. !\n<b>Назва івенту</b>: {name}".format(
+            time=self.time_string,
+            organizers=self.organizers,
+            name=self.title,
+            label=self.get_night_event_lane_display(),
         )
         return resulting_string
 

@@ -20,6 +20,10 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'larp_in_ua.apps.scheduler.tasks.notify_closest_events',
         'schedule': crontab(),
     },
+    'closest_night_event_notifier': {
+        'task': 'larp_in_ua.apps.scheduler.tasks.notify_closest_night_event',
+        'schedule': crontab(),
+    },
     'refresh_hook': {
         'task': 'larp_in_ua.apps.common.tasks.refresh_hook',
         'schedule': crontab(

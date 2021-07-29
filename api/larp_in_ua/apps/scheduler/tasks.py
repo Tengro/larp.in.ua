@@ -3,6 +3,7 @@ from django.utils.timezone import now
 from larp_in_ua.apps.accounts.selectors import get_all_users
 from larp_in_ua.apps.scheduler.selectors import (
     get_closest_lection, get_closest_not_filled_workshop,
+    get_closest_night_event,
 )
 from larp_in_ua.apps.scheduler.models import RegistrationStatus, EventLaneChoices
 from larp_in_ua.apps.scheduler.constants import MAX_TIMES_ASKED_HOT, MAX_TIMES_ASKED, FREE_FOR_ALL_TIME, LAST_TIME_SET
@@ -20,13 +21,24 @@ def notify_closest_lection():
 
 
 @celery_app.task
+def notify_closest_night_event():
+    event = get_closest_night_event()
+    if closest_lection:
+        all_users = get_all_users()
+        for user in all_users:
+            user.send_message(event.night_representation)
+        event.finished_notification = True
+        event.save()
+
+
+@celery_app.task
 def notify_closest_events():
     for choice in EventLaneChoices.choices:
         this_time = now()
         closest_workshop = get_closest_not_filled_workshop(choice[0])
         if not closest_workshop:
             continue
-        prepared_users = closest_workshop.registered_users.filter(registration_status=RegistrationStatus.PRE_APPROVED)
+        prepared_users = closest_workshop.registered_users.filter(registration_status=RegistrationStatus.PRE_APPROVED).exclude(user__telegram_id=None)
         free_slots = closest_workshop.maximal_participants - closest_workshop.existing_participants - prepared_users.count()
         waiting_users = closest_workshop.registered_users.filter(registration_status=RegistrationStatus.ON_HOLD)
         ffa_time = ((closest_workshop.event_time - this_time).seconds/60) < FREE_FOR_ALL_TIME
