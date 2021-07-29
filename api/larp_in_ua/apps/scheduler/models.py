@@ -21,7 +21,7 @@ class EventLaneChoices(models.IntegerChoices):
 
 
 class NightEventLaneChoices(models.IntegerChoices):
-    GREAT_HALL = 1, "Великий"
+    GREAT_HALL = 1, "Велика зала: танці та бар"
     CUDDLE = 2, "Party Room: Cuddle-puddle"
     LOCK_STOCK_BARRELS = 3, "Party Room: Карти, гроші, два стволи"
     CYBERPUNK_TRAP = 4, "Party Room: CYBERPUNK#TRAP"
@@ -66,11 +66,12 @@ class Event(CoreModel):
 
     @property
     def night_representation(self) -> str:
-        resulting_string = "Увага!\nО {time} у {label} відбудеться івент від {organizers}. !\n<b>Назва івенту</b>: {name}".format(
+        resulting_string = "Увага!\nО {time} у {label} відбудеться івент від {organizers}. !\n<b>Назва івенту</b>: {name}\n<b>Опис</b>: {description}".format(
             time=self.time_string,
             organizers=self.organizers,
             name=self.title,
             label=self.get_night_event_lane_display(),
+            description=self.description,
         )
         return resulting_string
 
