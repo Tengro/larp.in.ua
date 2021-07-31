@@ -175,9 +175,6 @@ class EventRegistration(CoreModel):
         if self.event.finished_notification:
             text = "Схоже на цей івент вже не збирають підтверджень; він або ось-ось почнеться, або набрав повний список"
             full_stop = True
-        if self.event.event_time < now():
-            full_stop = True
-            text = "Схоже, івент вже почався і ви пропустили дедлайн =("
         if full_stop:
             return text
         self.registration_status = status
