@@ -29,6 +29,6 @@ def all_schedule(update, context):
 
 def main():
     dp = DjangoTelegramBot.dispatcher
-    dp.add_handler(CommandHandler("lections", lections_left))
+    dp.add_handler(CommandHandler("lectures", lections_left))
     dp.add_handler(CommandHandler("events", all_events_left))
     dp.add_handler(CommandHandler("full_schedule", all_schedule))

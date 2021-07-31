@@ -38,7 +38,7 @@ def notify_closest_events():
         closest_workshop = get_closest_not_filled_workshop(choice[0])
         if not closest_workshop:
             continue
-        prepared_users = closest_workshop.registered_users.filter(registration_status=RegistrationStatus.PRE_APPROVED).exclude(user__telegram_id=None)
+        prepared_users = closest_workshop.registered_users.filter(registration_status=RegistrationStatus.PRE_APPROVED)
         free_slots = closest_workshop.maximal_participants - closest_workshop.existing_participants - prepared_users.count()
         waiting_users = closest_workshop.registered_users.filter(registration_status=RegistrationStatus.ON_HOLD)
         ffa_time = ((closest_workshop.event_time - this_time).seconds/60) < FREE_FOR_ALL_TIME
@@ -53,8 +53,9 @@ def notify_closest_events():
                 user.send_message("Вашу реєстрацію на івент відмінено через брак вчасної відповіді")
                 continue
             if not user._was_invited:
-                user._was_invited = True
-                user.send_approval_request(False)
+                if user.telegram_id is not None:
+                    user._was_invited = True
+                    user.send_approval_request(False)
             user.save()
         last_call_for_waitlist = ((closest_workshop.event_time - this_time).seconds/60) < LAST_TIME_SET
         if last_call_for_waitlist:
@@ -66,8 +67,9 @@ def notify_closest_events():
                     user.send_message("Вашу реєстрацію на івент відмінено через брак вчасної відповіді")
                     continue
                 if not user._was_invited:
-                    user._was_invited = True
-                    user.send_approval_request(True)
+                    if user.telegram_id is not None:
+                        user._was_invited = True
+                        user.send_approval_request(True)
                 user.save()
 
         if not prepared_users and not waiting_users and free_slots > 0 and last_call_for_waitlist:
