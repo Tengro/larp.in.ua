@@ -49,6 +49,7 @@ def notify_closest_events():
             user._times_asked += 1
             if user._times_asked > MAX_TIMES_ASKED:
                 user.registration_status = RegistrationStatus.DECLINED
+                user.invite_finished = True
                 user.save()
                 user.send_message("Вашу реєстрацію на івент відмінено через брак вчасної відповіді")
                 continue
@@ -63,6 +64,7 @@ def notify_closest_events():
                 user._times_asked += 1
                 if user._times_asked > MAX_TIMES_ASKED_HOT:
                     user.registration_status = RegistrationStatus.DECLINED
+                    user.invite_finished = True
                     user.save()
                     user.send_message("Вашу реєстрацію на івент відмінено через брак вчасної відповіді")
                     continue

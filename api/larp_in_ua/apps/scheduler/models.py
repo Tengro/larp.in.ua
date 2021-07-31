@@ -152,6 +152,7 @@ class EventRegistration(CoreModel):
     )
     _was_invited = models.BooleanField(default=False)
     _times_asked = models.IntegerField(default=0)
+    invite_finished = models.BooleanField(default=False)
 
     def __str__(self, *args, **wargs):
         return f"{self.event.title} о {self.event.time_string}: реєстрація для {self.user.email}"
@@ -169,7 +170,7 @@ class EventRegistration(CoreModel):
         if self.registration_status in [RegistrationStatus.APPROVED, RegistrationStatus.DECLINED]:
             text = "Схоже, ви вже відповіли на запрошення на цей івент!"
             full_stop = True
-        if self._times_asked > MAX_TIMES_ASKED or self.event.event_time < now():
+        if self.invite_finished or self.event.event_time < now():
             text = "Схоже, ви не відповіли вчасно і пропустили дедлайн =("
             full_stop = True
         if self.event.finished_notification:
