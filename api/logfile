@@ -1,0 +1,6 @@
+Django Telegram Bot <POLLING mode>
+Loading handlers for registration
+Loaded larp_in_ua.apps.accounts.telegrambot
+Loaded larp_in_ua.apps.scheduler.telegrambot
+Please manually start polling update for 1 bot. Run command:
+python manage.py botpolling --username=larp_chameleon_bot
