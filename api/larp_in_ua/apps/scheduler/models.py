@@ -169,6 +169,9 @@ class EventRegistration(CoreModel):
         if self.registration_status in [RegistrationStatus.APPROVED, RegistrationStatus.DECLINED]:
             text = "Схоже, ви вже відповіли на запрошення на цей івент!"
             full_stop = True
+        if self._times_asked > MAX_TIMES_ASKED or self.event.event_time < now():
+            text = "Схоже, ви не відповіли вчасно і пропустили дедлайн =("
+            full_stop = True
         if self.event.finished_notification:
             text = "Схоже на цей івент вже не збирають підтверджень; він або ось-ось почнеться, або набрав повний список"
             full_stop = True
