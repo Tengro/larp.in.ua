@@ -53,7 +53,7 @@ def notify_closest_events():
                 user.send_message("Вашу реєстрацію на івент відмінено через брак вчасної відповіді")
                 continue
             if not user._was_invited:
-                if user.telegram_id is not None:
+                if user.user.telegram_id is not None:
                     user._was_invited = True
                     user.send_approval_request(False)
             user.save()
@@ -67,7 +67,7 @@ def notify_closest_events():
                     user.send_message("Вашу реєстрацію на івент відмінено через брак вчасної відповіді")
                     continue
                 if not user._was_invited:
-                    if user.telegram_id is not None:
+                    if user.user.telegram_id is not None:
                         user._was_invited = True
                         user.send_approval_request(True)
                 user.save()
